@@ -1,0 +1,31 @@
+def set_operations(text):
+  """
+  This function performs operations on sets of letters from a given text.
+
+  Args:
+    text: A string containing the text.
+
+  Returns:
+    None. Prints the results to the console.
+  """
+  text = text.lower()
+
+  letter_counts = {}
+  for letter in text:
+    if letter.isalpha():
+      if letter in letter_counts:
+        letter_counts[letter] += 1
+      else:
+        letter_counts[letter] = 1
+
+  letters_twice_or_more = set([letter for letter, count in letter_counts.items() if count >= 2])
+  print("Letters occurring at least twice:", letters_twice_or_more)
+
+  letters_once = set([letter for letter, count in letter_counts.items() if count == 1])
+  print("Letters occurring only once:", letters_once)
+
+text = input("Enter a text: ")
+
+set_operations(text)
+
+input("Натисніть Enter, щоб вийти...")
