@@ -1,0 +1,16 @@
+sentence = input("Введіть речення: ")
+
+words = sentence.split()
+
+result = []
+for word in words:
+    
+    if word[0].lower() == word[-1].lower() and len(word) > 1:
+        result.append(word)
+
+if result:
+    print("Слова, які починаються і закінчуються на одну й ту ж літеру:", ", ".join(result))
+else:
+    print("Слів, які починаються і закінчуються на одну й ту ж літеру, не знайдено.")
+
+input("Натисніть Enter, щоб вийти...")
