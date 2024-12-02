@@ -1,0 +1,27 @@
+import math
+
+def calculate_z(alpha):
+    z = (math.sqrt(2) / 2) * math.sin(math.radians(alpha / 2))
+    return z
+
+def input_alpha():
+    while True:
+        try:
+            alpha = float(input("Введіть число α (в градусах): "))
+            if alpha <= 0 or alpha >= 360:
+                print("Помилка: α повинно бути в межах від 0 до 360 градусів.")
+            else:
+                return alpha
+        except ValueError:
+            print("Помилка: введіть правильне число.")
+
+def main():
+    alpha = input_alpha()
+    z = calculate_z(alpha)
+    
+    print(f"Значення виразу z для α = {alpha} градусів: {z}")
+
+if __name__ == "__main__":
+    main()
+    
+input("Натисніть Enter, щоб вийти...")
