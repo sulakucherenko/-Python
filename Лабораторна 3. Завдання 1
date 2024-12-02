@@ -1,0 +1,21 @@
+t = input("Введіть слово, яке не перевищує 8 символів: ")
+
+while len(t) > 8:
+    t = input("Введіть ще раз слово, так як воно перевищує 8 символів: ")
+
+first_10_chars = t[:10]
+
+first_letter = t[0] if len(t) > 0 else ""
+last_letter = t[-1] if len(t) > 0 else ""
+
+print("Перші 10 символів:", first_10_chars)
+print("Перша літера:", first_letter)
+print("Остання літера:", last_letter)
+
+if len(t) > 1:
+    sliced_string = t[1:-1]
+    print("Після зрізу першого та останнього символу:", sliced_string)
+else:
+    print("Рядок занадто короткий для зрізу без першого та останнього символу.")
+
+input("Натисніть Enter, щоб вийти...")
