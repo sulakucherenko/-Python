@@ -1,0 +1,104 @@
+import json
+import os
+
+contacts = [
+    {"Surname": "Kucherenko", "Phone": "1234567890"},
+    {"Surname": "Ivanenko", "Phone": "2345678901"},
+    {"Surname": "Petrov", "Phone": "3456789012"},
+    {"Surname": "Sidorov", "Phone": "4567890123"},
+    {"Surname": "Stepanov", "Phone": "5678901234"},
+    {"Surname": "Maksymov", "Phone": "6789012345"},
+    {"Surname": "Dmitriev", "Phone": "7890123456"},
+    {"Surname": "Korolev", "Phone": "8901234567"},
+    {"Surname": "Shulga", "Phone": "9012345678"},
+    {"Surname": "Lysenko", "Phone": "1123456789"}
+]
+
+def save_to_json(file_name, data):
+    try:
+        with open(file_name, "w", encoding="utf-8") as file:
+            json.dump(data, file, ensure_ascii=False, indent=4)
+        print("Дані успішно збережено в файл.")
+    except Exception as e:
+        print(f"Помилка при збереженні файлу: {e}")
+
+def read_from_json(file_name):
+    if not os.path.exists(file_name):  
+        print(f"Файл {file_name} не знайдений! Створюю файл з даними.")
+        save_to_json(file_name, contacts) 
+        return contacts
+    
+    try:
+        with open(file_name, "r", encoding="utf-8") as file:
+            data = json.load(file)
+        return data
+    except json.JSONDecodeError:
+        print(f"Помилка декодування JSON у файлі {file_name}")
+        return None
+    except Exception as e:
+        print(f"Помилка при читанні файлу: {e}")
+        return None
+
+def main():
+    file_name = "contacts.json"
+  
+    contacts_data = read_from_json(file_name)
+
+    while True:
+        print("\nОберіть дію:")
+        print("1 - Вивести вміст записника")
+        print("2 - Додати новий запис")
+        print("3 - Видалити запис")
+        print("4 - Пошук телефону за прізвищем")
+        print("5 - Пошук прізвища за номером телефону")
+        print("6 - Вийти")
+
+        choice = input("Ваш вибір: ")
+
+        if choice == "1":
+            print("\nВміст записника:")
+            for contact in contacts_data:
+                print(f"Прізвище: {contact['Surname']}, Телефон: {contact['Phone']}")
+
+        elif choice == "2":
+            surname = input("Введіть прізвище: ")
+            phone = input("Введіть номер телефону: ")
+            contacts_data.append({"Surname": surname, "Phone": phone})
+            save_to_json(file_name, contacts_data)
+
+        elif choice == "3":
+            surname = input("Введіть прізвище для видалення: ")
+            contacts_data = [contact for contact in contacts_data if contact["Surname"].lower() != surname.lower()]
+            save_to_json(file_name, contacts_data)
+
+        elif choice == "4":
+            surname = input("Введіть прізвище для пошуку телефону: ")
+            found = False
+            for contact in contacts_data:
+                if contact["Surname"].lower() == surname.lower():
+                    print(f"Телефон {surname}: {contact['Phone']}")
+                    found = True
+                    break
+            if not found:
+                print(f"Людина з прізвищем {surname} не знайдена!")
+
+        elif choice == "5":
+            phone = input("Введіть номер телефону для пошуку прізвища: ")
+            found = False
+            for contact in contacts_data:
+                if contact["Phone"] == phone:
+                    print(f"Прізвище людини з номером {phone}: {contact['Surname']}")
+                    found = True
+                    break
+            if not found:
+                print(f"Людина з номером телефону {phone} не знайдена!")
+
+        elif choice == "6":
+            print("Вихід з програми.")
+            break
+
+        else:
+            print("Невірний вибір, спробуйте ще раз.")
+
+if __name__ == "__main__":
+    main()
