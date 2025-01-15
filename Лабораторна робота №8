@@ -1,0 +1,40 @@
+students = {
+    "group_number": "КНз-31с",
+    "students": [
+        {
+            "full_name": "Кучеренко Суламіта Андріївна",
+            "course": 2,
+            "grades": {
+                "Програмування": 90,
+                "Алгоритми даних": 85,
+                "Чисельні методи": 95
+            }
+        },
+        {
+            "full_name": "Паламар Еліна Валентинівна",
+            "course": 1,
+            "grades": {
+                "Програмування": 80,
+                "Алгоритми даних": 75,
+                "Чисельні методи": 88
+            }
+        }
+    ]
+}
+
+def add_student(group, full_name, course, grades):
+    new_student = {
+        "full_name": full_name,
+        "course": course,
+        "grades": grades
+    }
+    group["students"].append(new_student)  
+    print(f"Студента {full_name} успішно додано до групи {group['group_number']}.")
+
+add_student(students, "Попова Катерина Віталіївна", 2, {"Програмування": 85, "Алгоритми даних": 90, "Чисельні методи": 92})
+
+print("\nІнформація про студентів у групі:")
+for student in students["students"]:
+    print(f"Прізвище, ім'я, по батькові: {student['full_name']}, Курс: {student['course']}, Оцінки: {student['grades']}")
+
+print("\nЗавдання для другого студента: Розробити функцію для сортування студентів за середнім балом.")
