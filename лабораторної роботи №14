@@ -1,0 +1,27 @@
+import numpy as np
+import matplotlib.pyplot as plt
+def plot_function():
+    # Створення масиву значень x
+    x = np.linspace(-3, 3, 500)  # 500 точок у діапазоні [-3, 3]
+    # Обчислення значень функції Y(x)
+    y = 15 * np.sin(10 * x) * np.cos(3 * x)
+    # Побудова графіка
+    plt.figure(figsize=(10, 6))  # Розмір графіка
+    plt.plot(x, y, linestyle='-', color='blue', linewidth=2, label='Y(x) = 15*sin(10x)*cos(3x)')
+    # Налаштування осей
+    plt.axhline(0, color='black', linewidth=0.8, linestyle='--')  # Лінія осі X
+    plt.axvline(0, color='black', linewidth=0.8, linestyle='--')  # Лінія осі Y
+    # Додавання підписів осей
+    plt.xlabel("X", fontsize=12)
+    plt.ylabel("Y", fontsize=12)
+    # Назва графіка
+    plt.title("Графік функції Y(x) = 15*sin(10x)*cos(3x)", fontsize=16)
+    # Вставка легенди
+    plt.legend(fontsize=12)
+    # Сітка
+    plt.grid(color='gray', linestyle='--', linewidth=0.5)
+    # Показ графіка
+    plt.show()
+# Виклик функції побудови графіка
+if __name__ == "__main__":
+    plot_function()
