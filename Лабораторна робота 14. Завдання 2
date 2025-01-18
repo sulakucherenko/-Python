@@ -1,0 +1,50 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+# Завантажуємо дані з CSV файлу
+data = pd.read_csv('Education.Statistics.csv')
+# Фільтруємо дані для України та США
+ukraine_data = data[(data['Country'] == 'Ukraine') & (data['Indicator'] == 'Primary school age children out-of-school (%)')]
+usa_data = data[(data['Country'] == 'USA') & (data['Indicator'] == 'Primary school age children out-of-school (%)')]
+# Отримуємо роки та значення
+years_ukraine = ukraine_data['Year'].values
+values_ukraine = ukraine_data['Value'].values
+years_usa = usa_data['Year'].values
+values_usa = usa_data['Value'].values
+# 2.1. Візуалізація даних на одній координатній осі
+plt.figure(figsize=(12, 6))
+# Побудова графіків
+plt.plot(years_ukraine, values_ukraine, label='Україна', color='blue', marker='o')
+plt.plot(years_usa, values_usa, label='США', color='red', marker='o')
+# Налаштування графіка
+plt.title('Відсоток дітей шкільного віку, які не відвідують школу (2000-2008)', fontsize=16)
+plt.xlabel('Рік', fontsize=14)
+plt.ylabel('Відсоток дітей (%)', fontsize=14)
+plt.xticks(years_ukraine, rotation=45)  # Поворот підписів по осі X
+plt.grid()
+plt.legend()
+plt.tight_layout()
+# Показуємо графік
+plt.show()
+# 2.2. Побудова стовпчастих діаграм
+country1 = input("Введіть назву першої країни (Україна або США): ")
+country2 = input("Введіть назву другої країни (Україна або США): ")
+# Визначаємо дані для стовпчастої діаграми
+if country1.lower() == 'україна':
+    data1 = values_ukraine[-1]  # Кількість дітей для України
+else:
+    data1 = values_usa[-1]  # Кількість дітей для США
+
+if country2.lower() == 'україна':
+    data2 = values_ukraine[-1]  # Кількість дітей для України
+else:
+    data2 = values_usa[-1]  # Кількість дітей для США
+# Побудова стовпчастої діаграми
+labels = [country1, country2]
+values = [data1, data2]
+plt.figure(figsize=(8, 5))
+plt.bar(labels, values, color=['blue', 'red'])
+plt.title('Відсоток дітей шкільного віку, які не відвідують школу', fontsize=16)
+plt.ylabel('Відсоток дітей (%)', fontsize=14)
+plt.grid(axis='y')
+# Показуємо стовпчасту діаграму
+plt.show()
