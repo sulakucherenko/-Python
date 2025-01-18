@@ -1,0 +1,19 @@
+import os
+
+def create_and_write_file():
+    """
+    Створює текстовий файл, записує прізвище першого студента та питання з програмування.
+    """
+    try:
+        file_name = "student_questions.txt"
+        # Створюємо та записуємо початкові дані у файл
+        with open(file_name, "w", encoding="utf-8") as file:
+            file.write("Прізвище: Кучеренко\n") 
+            file.write("Питання: Як реалізувати обробку виключень у Python?\n")
+            file.write("Інструкція: Наступний студент має дописати своє прізвище та дати розгорнуту відповідь на питання.\n")
+        print(f"Файл '{file_name}' успішно створено.")
+    except Exception as e:
+        print(f"Помилка при створенні файлу: {e}")
+
+if __name__ == "__main__":
+    create_and_write_file()
