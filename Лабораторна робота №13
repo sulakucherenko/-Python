@@ -1,0 +1,127 @@
+import csv
+import json
+import os
+
+def create_csv_file():
+    """
+    Створює файл .csv з даними.
+    """
+    try:
+        file_name = "data.csv"
+        # Дані для запису
+        data = [
+            ["ID", "Name", "Age"],
+            [1, "Ivan Ivanov", 20],
+            [2, "Petro Petrenko", 22],
+            [3, "Olena Shevchenko", 19]
+        ]
+        # Записуємо дані у файл .csv
+        with open(file_name, "w", newline="", encoding="utf-8") as file:
+            writer = csv.writer(file)
+            writer.writerows(data)
+        print(f"Файл '{file_name}' успішно створено.")
+    except Exception as e:
+        print(f"Помилка при створенні файлу .csv: {e}")
+
+
+def csv_to_json():
+    """
+    Конвертує файл .csv у .json.
+    """
+    try:
+        csv_file = "data.csv"
+        json_file = "data.json"
+
+        # Перевіряємо, чи існує файл
+        if not os.path.exists(csv_file):
+            raise FileNotFoundError(f"Файл '{csv_file}' не знайдено.")
+
+        # Читаємо дані з .csv
+        with open(csv_file, "r", encoding="utf-8") as file:
+            reader = csv.DictReader(file)
+            data = [row for row in reader]
+
+        # Записуємо дані у .json
+        with open(json_file, "w", encoding="utf-8") as file:
+            json.dump(data, file, indent=4, ensure_ascii=False)
+
+        print(f"Файл '{json_file}' успішно створено.")
+    except FileNotFoundError as e:
+        print(e)
+    except Exception as e:
+        print(f"Помилка при конвертації у .json: {e}")
+
+
+if __name__ == "__main__":
+    create_csv_file()   # Створення .csv файлу
+    csv_to_json()       # Конвертація у .json
+
+def json_to_csv_and_append():
+    """
+    Конвертує файл .json у .csv і додає нові рядки.
+    """
+    try:
+        json_file = "data.json"
+        csv_file = "updated_data.csv"
+
+        # Перевіряємо, чи існує файл
+        if not os.path.exists(json_file):
+            raise FileNotFoundError(f"Файл '{json_file}' не знайдено.")
+
+        # Читаємо дані з .json
+        with open(json_file, "r", encoding="utf-8") as file:
+            data = json.load(file)
+
+        # Записуємо дані у новий файл .csv
+        with open(csv_file, "w", newline="", encoding="utf-8") as file:
+            writer = csv.DictWriter(file, fieldnames=data[0].keys())
+            writer.writeheader()
+            writer.writerows(data)
+
+            # Додаємо нові рядки
+            writer.writerow({"ID": 4, "Name": "Anna Kovalenko", "Age": 21})
+            writer.writerow({"ID": 5, "Name": "Taras Tarasenko", "Age": 23})
+
+        print(f"Файл '{csv_file}' успішно створено та доповнено.")
+    except FileNotFoundError as e:
+        print(e)
+    except Exception as e:
+        print(f"Помилка при обробці файлу: {e}")
+
+
+if __name__ == "__main__":
+    json_to_csv_and_append()  # Конвертація та доповнення
+def csv_to_json_and_append():
+    """
+    Конвертує файл .csv у .json і додає нові рядки.
+    """
+    try:
+        csv_file = "updated_data.csv"
+        json_file = "final_data.json"
+
+        # Перевіряємо, чи існує файл
+        if not os.path.exists(csv_file):
+            raise FileNotFoundError(f"Файл '{csv_file}' не знайдено.")
+
+        # Читаємо дані з .csv
+        with open(csv_file, "r", encoding="utf-8") as file:
+            reader = csv.DictReader(file)
+            data = [row for row in reader]
+
+        # Додаємо нові рядки
+        data.append({"ID": "6", "Name": "Natalia Dmytrenko", "Age": "24"})
+        data.append({"ID": "7", "Name": "Oleg Bondarenko", "Age": "20"})
+
+        # Записуємо дані у .json
+        with open(json_file, "w", encoding="utf-8") as file:
+            json.dump(data, file, indent=4, ensure_ascii=False)
+
+        print(f"Файл '{json_file}' успішно створено та доповнено.")
+    except FileNotFoundError as e:
+        print(e)
+    except Exception as e:
+        print(f"Помилка при обробці файлу: {e}")
+
+
+if __name__ == "__main__":
+    csv_to_json_and_append()  # Конвертація та доповнення
