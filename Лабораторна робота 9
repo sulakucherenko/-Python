@@ -1,0 +1,61 @@
+def create_file():
+    """
+    Створює текстовий файл TF8_1 із вказаним вмістом.
+    """
+    try:
+        with open("TF8_1.txt", "w", encoding="utf-8") as file:
+            file.write("Сьогодні понеділок.\n")
+            file.write("12345На дворі зима.\n")
+            file.write("Мама приготувала сніданок.\n")
+            file.write("Всі чудово поснідали і пішли гуляти в парк.\n")
+            file.write("Там чути спів пташок.\n")
+        print("Файл TF8_1 успішно створено.")
+    except Exception as e:
+        print(f"Помилка створення файлу: {e}")
+
+
+def process_file():
+    """
+    Читає файл TF8_1, пропускає цифри, формує рядки по 10 символів із порядковим номером
+    і записує результат у файл TF8_2.
+    """
+    try:
+        with open("TF8_1.txt", "r", encoding="utf-8") as file:
+            lines = file.readlines()
+
+        processed_lines = []
+        for line in lines:
+            line_without_digits = ''.join(char for char in line if not char.isdigit())
+
+            for i in range(0, len(line_without_digits), 10):
+                substring = line_without_digits[i:i+10].strip()
+                processed_lines.append(f"{len(processed_lines) + 1:5} {substring}")
+
+        with open("TF8_2.txt", "w", encoding="utf-8") as file:
+            for line in processed_lines:
+                file.write(line + "\n")
+        print("Файл TF8_2 успішно створено.")
+
+    except FileNotFoundError:
+        print("Помилка: файл TF8_1 не знайдено. Спочатку створіть файл.")
+    except Exception as e:
+        print(f"Помилка обробки файлу: {e}")
+
+
+def print_file():
+    """
+    Читає вміст файлу TF8_2 і друкує його по рядках.
+    """
+    try:
+        with open("TF8_2.txt", "r", encoding="utf-8") as file:
+            print("Вміст файлу TF8_2:")
+            print(file.read())
+    except FileNotFoundError:
+        print("Помилка: файл TF8_2 не знайдено. Спочатку обробіть файл TF8_1.")
+    except Exception as e:
+        print(f"Помилка читання файлу: {e}")
+
+if __name__ == "__main__":
+    create_file()   
+    process_file()  
+    print_file()
