@@ -1,12 +1,8 @@
 import os
 
 def create_and_write_file():
-    """
-    Створює текстовий файл, записує прізвище першого студента та питання з програмування.
-    """
     try:
         file_name = "student_questions.txt"
-        # Створюємо та записуємо початкові дані у файл
         with open(file_name, "w", encoding="utf-8") as file:
             file.write("Прізвище: Кучеренко\n") 
             file.write("Питання: Як реалізувати обробку виключень у Python?\n")
@@ -17,3 +13,29 @@ def create_and_write_file():
 
 if __name__ == "__main__":
     create_and_write_file()
+
+def append_to_file():
+    try:
+        file_name = "student_questions.txt"
+        if not os.path.exists(file_name):
+            raise FileNotFoundError(f"Файл '{file_name}' не знайдено. Перевірте, чи створений файл першим студентом.")
+        
+        with open(file_name, "r", encoding="utf-8") as file:
+            content = file.read()
+        print("Поточний вміст файлу:\n", content)
+        
+        with open(file_name, "a", encoding="utf-8") as file:
+            file.write("\nПрізвище: Паламар\n")
+            file.write("Відповідь: Обробка виключень у Python реалізується за допомогою конструкції try-except.\n")
+            file.write("Після блоку try вказується код, який може викликати виключення, а в блоці except описується обробка цього виключення.\n")
+            file.write("Приклад:\n")
+            file.write("try:\n    x = 1 / 0\nexcept ZeroDivisionError:\n    print('Ділення на нуль!')\n")
+            file.write("Питання: Як працює список (list) у Python?\n")
+        print(f"Файл '{file_name}' успішно доповнено.")
+    except FileNotFoundError as e:
+        print(e)
+    except Exception as e:
+        print(f"Помилка при доповненні файлу: {e}")
+
+if __name__ == "__main__":
+    append_to_file()
