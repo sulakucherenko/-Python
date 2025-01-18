@@ -1,0 +1,38 @@
+import matplotlib.pyplot as plt
+contacts = {
+    "Іванов": "1234567890",
+    "Петров": "0987654321",
+    "Сидоров": "1122334455",
+    "Коваленко": "2233445566",
+    "Шевченко": "3344556677",
+    "Ткаченко": "4455667788",
+    "Мельник": "5566778899",
+    "Кравченко": "6677889900",
+    "Грищенко": "7788990011",
+    "Левченко": "8899001122"
+}
+search_name = input("Введіть прізвище особи для пошуку телефону: ")
+search_phone = input("Введіть номер телефону для пошуку особи: ")
+if search_name in contacts:
+    print(f"Номер телефону {search_name}: {contacts[search_name]}")
+else:
+    print(f"Телефон особи {search_name} не знайдено.")
+found = False
+for name, phone in contacts.items():
+    if phone == search_phone:
+        print(f"Прізвище особи з номером телефону {search_phone}: {name}")
+        found = True
+        break
+if not found:
+    print(f"Інформація про номер телефону {search_phone} не знайдена.")
+
+labels = ['Хлопці', 'Дівчата']
+sizes = [60, 40]  
+colors = ['#ff9999','#66b3ff']  
+explode = (0.1, 0)  
+plt.figure(figsize=(8, 6))
+plt.pie(sizes, explode=explode, labels=labels, colors=colors,
+        autopct='%1.1f%%', shadow=True, startangle=90)
+plt.axis('equal')  
+plt.title('Розподіл хлопців та дівчат у класі', fontsize=16)
+plt.show()
